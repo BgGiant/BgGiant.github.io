@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+	<link href="../CSS/reset.css" rel="stylesheet" />
+	<link href="../CSS/SomeStyle.css" rel="stylesheet" />
+	<script src="../ASSETS/js/main.js"></script>
+	<script src="../ASSETS/js/lib/jquery-2.1.4.min.js"></script>
+	<script>
+		var $contact = {};
+
+		//klassen Book klassen består av en div tag och 0 eller flera "Contact"
+		$contact.Book = function()
+		{
+		var arrayOfContacts = [];
+		var htmlElement=document.createElement("div");
+
+		htmlElement.style.backgroundColor = "lightgray";
+		document.body.appendChild(htmlElement);
+
+		//en metod som heter addContact (används för att lägga till kontakter)
+		this.addContact = function(namn,telefon)
+			{
+			var cont = new $contact.Contact(namn,telefon)
+			arrayOfContacts.push(cont);
+			htmlElement.appendChild(cont.htmlE);
+			};
+		//en metod som heter find som loopar igenom alla objekt och letar efter objekt som matchar sökningen.
+		this.find = function(sokord)
+			{
+			for (var i=0;i < arrayOfContacts.length;i++)
+				{
+
+				if (arrayOfContacts[i].namn.indexOf(sokord) >=0)
+					{
+					// console.log(arrayOfContacts[i].namn.indexOf(sokord));
+					arrayOfContacts[i].htmlE.style.backgroundColor = "pink";
+					}
+				else
+					{
+					arrayOfContacts[i].htmlE.style.backgroundColor = "lightblue";
+					}
+				}
+			};
+
+		};
+
+		//klassen Contact tar två inparametrar när den instantieras
+		$contact.Contact = function(namn,telefon)
+		{
+		this.namn=namn;
+		this.tele=telefon;
+		this.htmlE=document.createElement("div");
+		this.htmlE.innerHTML=namn+" tel:"+telefon;
+		this.htmlE.style.backgroundColor = "lightblue";
+		var hE = this.htmlE;
+
+		this.htmlE.addEventListener("click", function(){
+			console.log("hoho");
+			hE.style.backgroundColor = "gray";
+			});
+		};
+
+		// skapar objektet telefonbok
+		var myBook;
+		function init()
+		{
+		myBook = new $contact.Book();
+		}
+
+
+	</script>
+
+</head>
+<body onload="init();">
+		<div class="wrapper">
+			<div class="header">
+				<div class="meny">
+					<ul>
+						<li><a href="#">OM MIG</a></li>
+						<li><a href="#">TJÄNSTER </a></li>
+						<li><a href="#">SHOWCASE</a></li>
+						<li><a href="#">KONTAKT</a></li>
+					</ul>
+					
+				</div> <!-- End meny listan -->
+				<div class="form2">
+					<form id="form22">
+						<div>
+							<input type="text" id="sok" placeholder="sök" />
+							<input type="button" value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
+						</div>
+					</form>
+				</div>
+
+			</div><!-- End header -->
+			<div class="foto"> <img /></div>
+		</div> <!-- End wrapper -->
+		<div class="container" >
+			<div class="form_div">
+				<form>
+					<fieldset>
+						<legend>Form in UX Design!</legend><br />
+						<label> Name:</label><div> <input type="text" id="namn" placeholder="namn" /> </div> <br />
+						<label> Tele:</label><div><input type="text" id="tele" placeholder="tele" /></div> <br />
+						<input  type="button" value="Add" onClick="myBook.addContact(document.getElementById('namn').value, document.getElementById('tele').value);" />
+						<br />
+						<!--<div>
+							<input type="text" id="sok" placeholder="sök" />
+							<input type="button" value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
+						</div>-->
+					</fieldset>
+				</form>
+			</div>
+		</div><!-- end of container-->
+</body>
+</html>
