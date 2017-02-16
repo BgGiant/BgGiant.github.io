@@ -54,114 +54,59 @@
 			<div id="demo6"></div>
 	</fieldset>
 	<script>
-				//////// Don't look here! Start with line Nr 69 ot 70 ^____^ //////////
-				let svarFetch = document.getElementById("answer_1");
-				let svarEuro = document.getElementById("answer_2");
-				let svarZimbabwe= document.getElementById("answer_3");
-				let svarLeastPopulationLand= document.getElementById("answer_4");
-				let svarMostPopulationContinent = document.getElementById("answer_5");
-				var allPopulation=0, populationEuro=0,famaleZimbabwe =0,LeastPopLand=0,mostPopContinent=0;
-				var leastLandName="",mostContinentName="";
-				var maxAf=0,maxEu=0,maxNa=0, maxAs=0,maxSa=0,maxOc=0;
-				var nameAf="",nameEu="",nameNa="",nameAs="",nameSa="",nameOc="";
-				var sum= -Infinity,sum1= -Infinity,sum2= -Infinity,sum3 = -Infinity,sum4 = -Infinity,sum5 = -Infinity;
-				
+			
+			  let svarFetch = document.getElementById("answer_1");
+			  let svarEuro = 	document.getElementById("answer_2");
+			  let svarZimbabwe = 	document.getElementById("answer_3");
+			  let svarLeastPopulationLand = 	document.getElementById("answer_4");
+			  let svarMostPopulationContinent =  document.getElementById("answer_5");
+				let allPopulation=0, populationEuro=0,famaleZimbabwe =0;
+				let leastLandName="",mostContinentName="";
+				let myList=[];
 				let el = document.getElementById("btnSvar");
 				el.addEventListener("click", function(){
 					fetch("http://forverkliga.se/JavaScript/api/simple.php?world=whatever")
 					.then(function(response){
 						return response.json();
-					})
-						.then (function(json) {
-						for(let j of json){
-						
-							//get all people in this W...
-							allPopulation += j["population"];
-							//get all people in Eur...
-							if(j['continent']=='Europe'){
-								populationEuro += j['population'];
-							}
-							//get how many female in Zimbabwe(africa)..
-							if(j['name'] == 'Zimbabwe'){
-								var _pFemale=j['pFemale'];
-								var _zimbaPopulation=j['population'];
-								famaleZimbabwe = (_pFemale * _zimbaPopulation);
-							}
-							
-							//least pop....lan...
-							var min = Infinity;
-							if(j['population'] < min){
-								min=j['population'];
-								LeastPopLand=j['population'];
-								leastLandName=j['name'];
-							}
-							////////////////////////////////////////////////////////////////////
-							//MostpopContinent
-							
-								if(j['continent']==='Africa'){
-									maxAf += j['population'];
-									nameAf = j['continent'];
-									//document.getElementById("demo").innerHTML =maxAf + " : " +nameAf;
+					}).then (function(json) {
+						for(let j of json){	
+								myList.push(j.population);
+								//get all people in this W...
+								allPopulation += j.population;
+								//get all people in Eur...
+								if(j.continent==='Europe'){
+									populationEuro += j.population;
 								}
-								
-							   if( j['continent']==='Europe' ){
-									maxEu += j['population'];
-									nameEu = j['continent'];
-									//document.getElementById("demo1").innerHTML =maxEu + " : " +nameEu;
+								//get how many female in Zimbabwe(africa)..
+								var nameZimb = json.filter(n => n.name ==='Zimbabwe');
+								for(let b of nameZimb){
+									var _zimbaPopulation = b.population;
+									var _pFemale = b.pFemale;
 								}
-							
-								if(j['population'] > sum2 && j['continent']==='North America' ){
-									sum2 +=j['population'];
-									maxNa += j['population'];
-									nameNa = j['continent'];
-									//document.getElementById("demo2").innerHTML =maxNa + " : " +nameNa;
-								}
-								
-								if(j['population'] > sum3 && j['continent']==='Asia' ){
-									sum3 +=j['population'];
-									maxAs += j['population'];
-									nameAs = j['continent'];
-									//document.getElementById("demo3").innerHTML =maxAs + " : " +nameAs;
-								}
-								
-								if(j['population'] > sum4 && j['continent']==='South America' ){
-									sum4 +=j['population'];
-									maxSa += j['population'];
-									nameSa = j['continent'];
-									//document.getElementById("demo4").innerHTML =maxSa + " : " +nameSa;
-								}
-								if(j['population'] > sum5 && j['continent']==='Oceania' ){
-									sum5 +=j['population'];
-									maxOc += j['population'];
-									nameOc = j['continent'];
-									//document.getElementById("demo5").innerHTML =maxOc + " : " +nameOc;
-								}
-								var maxX = Math.max(maxAf,maxNa,maxSa,maxOc,maxEu,maxAs);
-								function checkCont(name){
-									   if(maxX===maxAf)return name = nameAf;
-									   if(maxX===maxNa)return name = nameNa;
-									   if(maxX===maxSa)return name = nameSa;
-									   if(maxX===maxOc)return name = nameOc;
-									   if(maxX===maxEu)return name = nameEu;
-									   if(maxX===maxAs)return name = nameAs;
-								}
-									mostContinentName=checkCont();
-						/////////////////////////////////////////////////////	
+									famaleZimbabwe = (_pFemale * _zimbaPopulation);
+								//least pop....lan...
+								var minMpop = Math.min.apply(null,myList);
+								var nameXland =json.filter( p => p.population === minMpop);
+									for(let c of nameXland){
+										leastLandName = c.name;
+									}
+								//MostpopContinent	
+								var maxMpop = Math.max.apply(null,myList);
+								var nameMxLand =json.filter( p => p.population === maxMpop);
+									for(let m of nameMxLand){
+										mostContinentName = m.continent;
+									}
 						}
-					
-					//svarFetch.innerHTML = " ";
-					//svarEuro.innerHTML = "";
-					svarFetch.innerHTML = allPopulation ;
-					svarEuro.innerHTML = populationEuro;
-					svarZimbabwe.innerHTML=famaleZimbabwe;
-					svarLeastPopulationLand.innerHTML = leastLandName;
-					svarMostPopulationContinent.innerHTML=mostContinentName ;
-					allPopulation =0;
-					populationEuro=0;				
-										
-			});	
-		});		
-		</script>
+								svarFetch.innerHTML = allPopulation ;
+								svarEuro.innerHTML = populationEuro;
+								svarZimbabwe.innerHTML = famaleZimbabwe;
+								svarLeastPopulationLand.innerHTML = leastLandName;
+								svarMostPopulationContinent.innerHTML = mostContinentName;
+								allPopulation = 0;
+								populationEuro = 0;
+						});	
+					});				
+	</script>
 		<fieldset id ="fieldapi">
 			<legend><strong>API:s</strong></legend><br />
 				<p>[ { "name": "United Kingdom", "continent": "Europe", "population": 65270121, "pFemale": 0.508 },
