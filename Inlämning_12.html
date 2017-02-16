@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<script src="jquery-2.1.4.min.js"></script>
+		<script src="main.js"></script>
+		<!-- 
+		<script src="../main.js"></script>
+		<script src="../jquery-2.1.4.min.js"></script>
+		-->
+		<style>
+			#field,#fieldapi{
+					width:60%;
+					margin: auto;
+					border: 3px solid #73AD21;
+					padding: 10px;
+					margin-top:20px;
+				}
+			
+		</style>
+	</head>
+<body>
+	<fieldset id ="field">
+		<legend><strong>Inlämning_12</strong></legend><br />
+			<div>
+				<h5>Hur många människor finns det i hela världen? </h5>
+				<div id= "answer_1"> </div>
+			</div>
+			<hr>
+			<div>
+				<h5 >Hur många människor finns i Europa? </h5>
+				<div id= "answer_2"> </div>	
+			</div>
+			<hr>
+			<div>
+				<h5 >Hur många kvinnor finns det i Zimbabwe? </h5>
+				<div id= "answer_3"> </div>
+			</div>
+			<hr>
+			<div>
+				<h5>Vilket land har minst befolkning? </h5>
+				<div id= "answer_4"> </div>
+			</div>
+			<hr>
+			<div>
+				<h5>Vilken kontinent har högst befolkning?</h5>
+				<div id= "answer_5"> </div>
+			</div>
+			<br/>
+			<button id="btnSvar">Get answer</button>
+			<div id="demo"></div>
+			<div id="demo1"></div>
+			<div id="demo2"></div>
+			<div id="demo3"></div>
+			<div id="demo4"></div>
+			<div id="demo5"></div>
+			<div id="demo6"></div>
+	</fieldset>
+	<script>
+				//////// Don't look here! Start with line Nr 85 ot 86 ^____^ //////////
+				let svarFetch = document.getElementById("answer_1");
+				let svarEuro = document.getElementById("answer_2");
+				let svarZimbabwe= document.getElementById("answer_3");
+				let svarLeastPopulationLand= document.getElementById("answer_4");
+				let svarMostPopulationContinent = document.getElementById("answer_5");
+				var allPopulation=0, populationEuro=0,famaleZimbabwe =0,LeastPopLand=0,mostPopContinent=0;
+				var leastLandName="",mostContinentName="";
+				var maxAf=0,maxEu=0,maxNa=0, maxAs=0,maxSa=0,maxOc=0;
+				var nameAf="",nameEu="",nameNa="",nameAs="",nameSa="",nameOc="";
+				var sum= -Infinity,sum1= -Infinity,sum2= -Infinity,sum3 = -Infinity,sum4 = -Infinity,sum5 = -Infinity;
+				
+				let el = document.getElementById("btnSvar");
+				el.addEventListener("click", function(){
+					fetch("http://forverkliga.se/JavaScript/api/simple.php?world=whatever")
+					.then(function(response){
+						return response.json();
+					})
+						.then (function(json) {
+						for(let j of json){
+						
+							//get all people in this W...
+							allPopulation += j["population"];
+							//get all people in Eur...
+							if(j['continent']=='Europe'){
+								populationEuro += j['population'];
+							}
+							//get how many female in Zimbabwe(africa)..
+							if(j['name'] == 'Zimbabwe'){
+								var _pFemale=j['pFemale'];
+								var _zimbaPopulation=j['population'];
+								famaleZimbabwe = (_pFemale * _zimbaPopulation);
+							}
+							
+							//least pop....lan...
+							var min = Infinity;
+							if(j['population'] < min){
+								min=j['population'];
+								LeastPopLand=j['population'];
+								leastLandName=j['name'];
+							}
+							////////////////////////////////////////////////////////////////////
+							//MostpopContinent
+							
+								if(j['continent']==='Africa'){
+									maxAf += j['population'];
+									nameAf = j['continent'];
+									//document.getElementById("demo").innerHTML =maxAf + " : " +nameAf;
+								}
+								
+							   if( j['continent']==='Europe' ){
+									maxEu += j['population'];
+									nameEu = j['continent'];
+									//document.getElementById("demo1").innerHTML =maxEu + " : " +nameEu;
+								}
+							
+								if(j['population'] > sum2 && j['continent']==='North America' ){
+									sum2 +=j['population'];
+									maxNa += j['population'];
+									nameNa = j['continent'];
+									//document.getElementById("demo2").innerHTML =maxNa + " : " +nameNa;
+								}
+								
+								if(j['population'] > sum3 && j['continent']==='Asia' ){
+									sum3 +=j['population'];
+									maxAs += j['population'];
+									nameAs = j['continent'];
+									//document.getElementById("demo3").innerHTML =maxAs + " : " +nameAs;
+								}
+								
+								if(j['population'] > sum4 && j['continent']==='South America' ){
+									sum4 +=j['population'];
+									maxSa += j['population'];
+									nameSa = j['continent'];
+									//document.getElementById("demo4").innerHTML =maxSa + " : " +nameSa;
+								}
+								if(j['population'] > sum5 && j['continent']==='Oceania' ){
+									sum5 +=j['population'];
+									maxOc += j['population'];
+									nameOc = j['continent'];
+									//document.getElementById("demo5").innerHTML =maxOc + " : " +nameOc;
+								}
+								var maxX = Math.max(maxAf,maxNa,maxSa,maxOc,maxEu,maxAs);
+								function checkCont(name){
+									   if(maxX===maxAf)return name = nameAf;
+									   if(maxX===maxNa)return name = nameNa;
+									   if(maxX===maxSa)return name = nameSa;
+									   if(maxX===maxOc)return name = nameOc;
+									   if(maxX===maxEu)return name = nameEu;
+									   if(maxX===maxAs)return name = nameAs;
+								}
+									mostContinentName=checkCont();
+						/////////////////////////////////////////////////////	
+						}
+					
+					//svarFetch.innerHTML = " ";
+					//svarEuro.innerHTML = "";
+					svarFetch.innerHTML = allPopulation ;
+					svarEuro.innerHTML = populationEuro;
+					svarZimbabwe.innerHTML=famaleZimbabwe;
+					svarLeastPopulationLand.innerHTML = leastLandName;
+					svarMostPopulationContinent.innerHTML=mostContinentName ;
+					allPopulation =0;
+					populationEuro=0;				
+										
+			});	
+		});		
+		</script>
+		<fieldset id ="fieldapi">
+			<legend><strong>API:s</strong></legend><br />
+				<p>[ { "name": "United Kingdom", "continent": "Europe", "population": 65270121, "pFemale": 0.508 },
+				{ "name": "Republic of Ireland", "continent": "Europe", "population": 4708209, "pFemale": 0.499 }, 
+				{ "name": "Australia", "continent": "Oceania", "population": 24482205, "pFemale": 0.502 }, 
+				{ "name": "Taiwan", "continent": "Asia", "population": 23522296, "pFemale": 0.501 },
+				{ "name": "Uruguay", "continent": "South America", "population": 3446772, "pFemale": 0.517 },
+				{ "name": "Morocco", "continent": "Africa", "population": 35010005, "pFemale": 0.510 }, 
+				{ "name": "Nigeria", "continent": "Africa", "population": 188688090, "pFemale": 0.494 }, 
+				{ "name": "Zimbabwe", "continent": "Africa", "population": 16051510, "pFemale": 0.507 },
+				{ "name": "China", "continent": "Asia", "population": 1381321335, "pFemale": 0.488 }, 
+				{ "name": "Mexico", "continent": "North America", "population": 129386794, "pFemale": 0.507 },
+				{ "name": "Canada", "continent": "North America", "population": 36446796, "pFemale": 0.504 },
+				{ "name":"Czech Republic", "continent":"Europe", "population":10556351, "pFemale": 0.509 }, 
+				{ "name": "Iceland", "continent": "Europe", "population": 332631, "pFemale": 0.496 } ]</p>
+	</fieldset>
+</body>
+</html>
