@@ -10,12 +10,28 @@
 		 <script src="../jquery-2.1.4.min.js"></script>
 	</head>
 <body>    
-	
-	  <script src="https://fb.me/react-0.13.3.js"></script>
-
-	  <script src="../testReact.js" type="text/babel"> </script>
-	  <!-- React ska rendera HTML i #container -->
 	  <div id="container"></div>
-	  <div> Då kör vi empty file...</div>
+	  <script type="text/babel">
+			// Component är som en egen HTML tag
+			class Exempel extends React.Component {
+			  render() {
+			    return (
+			      <div>
+			      <h1>Hej {this.props.name}!</h1>
+			      <p>Klockan är {new Date().toLocaleTimeString()}.
+			      </p>
+			      </div>
+			    );
+			  }
+			}
+
+			// Rendera vår komponent till #container
+			React.render(
+			  <Exempel name="Student"/>,
+			  document.getElementById('container').innerHTML
+			);
+
+	  </script>
+	<br/><div> Test React...</div>
 </body>
 </html>
