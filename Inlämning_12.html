@@ -58,7 +58,7 @@
 				let myList=[];
 				let el = document.getElementById("btnSvar");
 				el.addEventListener("click", function(){
-					fetch("http://forverkliga.se/JavaScript/api/simple.php?world=whatever")
+					fetch("https://forverkliga.se/JavaScript/api/simple.php?world=whatever")
 					.then(function(response){
 						return response.json();
 					}).then (function(json) {
