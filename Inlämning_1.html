@@ -1,12 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title></title>
 	<meta charset="utf-8" />
-	<link href="../reset.css" rel="stylesheet" />
-	<link href="../SomeStyle.css" rel="stylesheet" />
-	<script src="../jquery-2.1.4.min.js"></script>
-	<script src="../main.js"></script>
+	<link href="../CSS/reset.css" rel="stylesheet" />
+	<link href="../CSS/SomeStyle.css" rel="stylesheet" />
+	<script src="../ASSETS/js/lib/jquery-2.1.4.min.js"></script>
+	<script src="../ASSETS/js/main.js"></script>
+	
 	<script>
 		var $contact = {};
 
@@ -86,12 +87,12 @@
 					
 				</div> <!-- End meny listan -->
 				<div class="form2">
-					<form class="searchForm" id="form22" >
-						<div>
-						   <input class="searchTerm" type="text" id="sok" placeholder="sök" />
-						   <input class="searchBtn" type="button" id="btn1"  value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
-						</div>
-					</form>
+						<form class="searchForm" id="form22" >
+								<div>
+									<input class="searchTerm" type="text" id="sok" placeholder="sök" />
+									<input class="searchBtn" type="button" id="btn1"  value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
+								</div>
+							</form>
 				 </div>
 
 			</div><!-- End header -->
@@ -104,9 +105,12 @@
 						<legend>Form in UX Design!</legend><br />
 						<label> Name:</label><div> <input type="text" id="namn" placeholder="namn" /> </div> <br />
 						<label> Tele:</label><div><input type="text" id="tele" placeholder="tele" /></div> <br />
-						<input  id="btn2" type="button" value="Add" onClick="myBook.addContact(document.getElementById('namn').value, document.getElementById('tele').value);" />
+						<input id="btn2" type="button" value="Add" onClick="myBook.addContact(document.getElementById('namn').value, document.getElementById('tele').value);" />
 						<br />
-						
+						<!--<div>
+							<input type="text" id="sok" placeholder="sök" />
+							<input type="button" value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
+						</div>-->
 					</fieldset>
 				</form>
 			</div>
