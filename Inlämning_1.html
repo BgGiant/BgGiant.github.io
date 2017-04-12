@@ -86,13 +86,13 @@
 					
 				</div> <!-- End meny listan -->
 				<div class="form2">
-					<form id="form22">
+					<form class="searchForm" id="form22" >
 						<div>
-							<input type="text" id="sok" placeholder="sök" />
-							<input type="button" value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
+						   <input class="searchTerm" type="text" id="sok" placeholder="sök" />
+						   <input class="searchBtn" type="button" id="btn1"  value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
 						</div>
 					</form>
-				</div>
+				 </div>
 
 			</div><!-- End header -->
 			<div class="foto"> <img /></div>
@@ -104,12 +104,9 @@
 						<legend>Form in UX Design!</legend><br />
 						<label> Name:</label><div> <input type="text" id="namn" placeholder="namn" /> </div> <br />
 						<label> Tele:</label><div><input type="text" id="tele" placeholder="tele" /></div> <br />
-						<input  type="button" value="Add" onClick="myBook.addContact(document.getElementById('namn').value, document.getElementById('tele').value);" />
+						<input  id="btn2" type="button" value="Add" onClick="myBook.addContact(document.getElementById('namn').value, document.getElementById('tele').value);" />
 						<br />
-						<!--<div>
-							<input type="text" id="sok" placeholder="sök" />
-							<input type="button" value="sök" onClick="myBook.find(document.getElementById('sok').value);" />
-						</div>-->
+						
 					</fieldset>
 				</form>
 			</div>
