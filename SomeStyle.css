@@ -1,15 +1,15 @@
 html{
-		overflow-y: scroll;
+	overflow-y: scroll;
 }
 
 html, body {
-		height: 100%;
+	height: 100%;
 }
 
 body{
-		color:#333;
-		background-color:#E2EBED;
-		/*position:relative;*/
+	color:#333;
+	background-color:#E2EBED;
+	/*position:relative;*/
 		
 }
 
@@ -21,12 +21,12 @@ body{
 
 .header{
 		
-		background-color:#808080;
-		height:3.1em ;/*450px*/
-		width:100%;
-		position: relative; 
+	background-color:#808080;
+	height:3.1em ;/*450px*/
+	width:100%;
+	position: relative; 
 		/*overflow: hidden; */
-		z-index: 5; 
+	z-index: 5; 
 	
 }
 .meny {
@@ -121,7 +121,6 @@ outline: 0;
 
 .searchBtn {
 border: 0;
-
 width: 38px;
 cursor: pointer;
 margin: 2px -38PX;
