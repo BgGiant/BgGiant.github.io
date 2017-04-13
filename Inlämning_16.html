@@ -67,7 +67,7 @@
 									
 										return(
 											
-										<tr key={item.name} counter ={counter++} >
+										<tr key={item.name} counter ={counter++} onClick={this.delete.bind(this,item)}>
 											<td > {item.name}</td>
 											<td > {item.population}</td>
 											<td > {item.continent}</td>
