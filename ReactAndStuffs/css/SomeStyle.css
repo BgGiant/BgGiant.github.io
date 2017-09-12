@@ -85,16 +85,16 @@ left:40px;
 	background-color:#b6ff00;
 }
 .form_div {
-	top: 10px;
-	float: right;
-	position: relative;
-	width: 30%;
-	margin: 55px 50px 70px 20px;
-	background: #fff;
-	padding: 10px;
-	border: solid 1px lightgray;
-	left: -350px;
-	background-image: url("../ReactAndStuffs/bilder/light-sharp-edges.png");
+    top: 10px;
+    float: right;
+    position: relative;
+    width: 30%;
+    margin: 55px 50px 70px 20px;
+    background: #fff;
+    padding: 10px;
+    border: solid 1px lightgray;
+    left: -350px;
+    background-image: url('../bilder/lightSharpEdges.png');
 }
  .form2{
 	 float:right;
