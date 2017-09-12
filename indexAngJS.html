@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular JS By Me!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../angular.js"></script>
+    <script src="../angular-route.js"></script>
+    <script src="../myScript.js"></script>
+    <script src="../jscriptPlus.js"></script>
+     <!-- Style sheets -->
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <link href="../styleAngJs.css" rel="stylesheet" />
+</head>
+
+<body ng-controller="MainController">
+    <br>
+      <div class="container">
+        <div class="row">
+           <div class="jumbotron text-center">
+                <h1>Give me a holla! </h1>
+                <h2> <img src="angularjs.jpg"></h2>
+            </div><!-- // End of jumbotron-div -->
+            <br>
+            <!-- Search div-->
+            <div id="custom-search-input">
+                <div class="input-group col-md-6">
+                    <input type="text" class="form-control input-md" placeholder="Search for..." ng-model="searchKeyword"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-md" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div><!-- // End of search div-->
+          <!-- Table -->
+          <div >
+            <table class="table table-bordered table-responsive">
+              <thead>
+                <tr class="warning">
+                    
+                  <th ng-click="sortBy('name')" class="text-center">Name<span ng-class="getSortByClass('name')"></span></th>
+                  <th ng-click="sortBy('continent')" class="text-center">Continent<span ng-class="getSortByClass('continent')"></span></th>
+                  <th ng-click="sortBy('population')" class="text-center">Population<span ng-class="getSortByClass('population')"></span></th>
+                  <th ng-click="sortBy('pFemale')" class="text-center">pFemale<span ng-class="getSortByClass('pFemale')"></span></th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody ng-repeat="row in output | orderBy:sortColumn:reverseSort | filter:searchKeyword"><!--  -->
+                <tr class="text-center">
+                  <td>{{row.name}}</td>
+                  <td>{{row.continent}}</td>
+                  <td>{{row.population}}</td>
+                  <td>{{row.pFemale}}</td>
+                  <td>
+		              <input type="button" value="&times;" class="btn btn-danger" ng-click="deleteRow(row.name)"/>
+		          </td>
+                </tr>
+              </tbody>
+            </table>
+              
+              <div class="expand-box">
+                  <div class="square-part">
+                    </div>
+                        <div class="round-part">
+                            <div class="wrapper">
+                            <span>Total rows: {{countRows}}</span>
+                            </div>
+                        </div>
+                  <div class="expand-button">+</div>
+             </div>
+              
+            </div><!-- //End div-table-->
+            <br>
+            <!-- Well section-->
+          <div class="well">
+            <legend>Add new row!</legend>
+                <form class="form-horizontal" role="form" ng-submit="addRow()">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Name</label>
+                        <div class="col-md-4">
+                            <input type="text" required class="form-control" 
+                                ng-model="name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Continent</label>
+                        <div class="col-md-4">
+                            <input type="text" required class="form-control" 
+                                ng-model="continent" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Population</label>
+                        <div class="col-md-4">
+                            <input type="text" required class="form-control" 
+                                ng-model="population" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">pFemale</label>
+                        <div class="col-md-4">
+                            <input type="text" required class="form-control" 
+                                ng-model="pFemale" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="col-md-4">
+                            <input type="submit" value="Add" class="btn btn-primary btn-block"/>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- // End of div='well'-->    
+          </div><!-- //End of row-->
+    </div><!-- //End of container-->
+</body>
+</html>
