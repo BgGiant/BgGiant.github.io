@@ -75,7 +75,7 @@ left:40px;
  }
 
 .foto {
-    background-image: url('../ReactAndStuffs/bilder/location.jpg');
+    background-image: url('../bilder/location.jpg');
     height: 250px;
     z-index: 3;
 }
