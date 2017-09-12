@@ -75,7 +75,7 @@ left:40px;
  }
 
 .foto {
-    background-image: url('../bilder/location.jpg');
+    background-image: url('../ReactAndStuffs/bilder/location.jpg');
     height: 250px;
     z-index: 3;
 }
@@ -94,7 +94,7 @@ left:40px;
 	padding: 10px;
 	border: solid 1px lightgray;
 	left: -350px;
-	background-image: url('../bilder/light-sharp-edges.png');
+	background-image: url('../ReactAndStuffs/bilder/light-sharp-edges.png');
 }
  .form2{
 	 float:right;
