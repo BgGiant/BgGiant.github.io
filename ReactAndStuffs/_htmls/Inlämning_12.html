@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<script src="../main.js"></script>
+		<script src="../jquery-2.1.4.min.js"></script>
+		<style>
+			#field,#fieldapi{
+					width:60%;
+					margin: auto;
+					border: 3px solid #73AD21;
+					padding: 10px;
+					margin-top:20px;
+				}
+			
+		</style>
+	</head>
+<body>
+	<fieldset id ="field">
+		<legend><strong>Inlämning_12</strong></legend><br />
+			<div>
+				<h5>Hur många människor finns det i hela världen? </h5>
+				<div id= "answer_1"> </div>
+			</div>
+			<hr>
+			<div>
+				<h5 >Hur många människor finns i Europa? </h5>
+				<div id= "answer_2"> </div>	
+			</div>
+			<hr>
+			<div>
+				<h5 >Hur många kvinnor finns det i Zimbabwe? </h5>
+				<div id= "answer_3"> </div>
+			</div>
+			<hr>
+			<div>
+				<h5>Vilket land har minst befolkning? </h5>
+				<div id= "answer_4"> </div>
+			</div>
+			<hr>
+			<div>
+				<h5>Vilken kontinent har högst befolkning?</h5>
+				<div id= "answer_5"> </div>
+			</div>
+			<br/>
+			<button id="btnSvar">Get answer</button>
+	</fieldset>
+	<script>
+			
+			  let svarFetch = document.getElementById("answer_1");
+			  let svarEuro = 	document.getElementById("answer_2");
+			  let svarZimbabwe = 	document.getElementById("answer_3");
+			  let svarLeastPopulationLand = 	document.getElementById("answer_4");
+			  let svarMostPopulationContinent =  document.getElementById("answer_5");
+				let allPopulation=0, populationEuro=0,famaleZimbabwe =0;
+				let leastLandName="",mostContinentName="";
+				let myList=[];
+				let el = document.getElementById("btnSvar");
+				el.addEventListener("click", function(){
+					fetch("https://forverkliga.se/JavaScript/api/simple.php?world=whatever")
+					.then(function(response){
+						return response.json();
+					}).then (function(json) {
+						for(let j of json){	
+								myList.push(j.population);
+								//get all people in this W...
+								allPopulation += j.population;
+								//get all people in Eur...
+								if(j.continent==='Europe'){
+									populationEuro += j.population;
+								}
+								//get how many female in Zimbabwe(africa)..
+								var nameZimb = json.filter(n => n.name ==='Zimbabwe');
+								for(let b of nameZimb){
+									var _zimbaPopulation = b.population;
+									var _pFemale = b.pFemale;
+								}
+									famaleZimbabwe = (_pFemale * _zimbaPopulation);
+								//least pop....lan...
+								var minMpop = Math.min.apply(null,myList);
+								var nameXland =json.filter( p => p.population === minMpop);
+									for(let c of nameXland){
+										leastLandName = c.name;
+									}
+								//MostpopContinent	
+								var maxMpop = Math.max.apply(null,myList);
+								var nameMxLand =json.filter( p => p.population === maxMpop);
+									for(let m of nameMxLand){
+										mostContinentName = m.continent;
+									}
+						}
+								svarFetch.innerHTML = allPopulation ;
+								svarEuro.innerHTML = populationEuro;
+								svarZimbabwe.innerHTML = famaleZimbabwe;
+								svarLeastPopulationLand.innerHTML = leastLandName;
+								svarMostPopulationContinent.innerHTML = mostContinentName;
+								allPopulation = 0;
+								populationEuro = 0;
+						});	
+					});				
+	</script>
+		<fieldset id ="fieldapi">
+			<legend><strong>API:s</strong></legend><br />
+				<p>[ { "name": "United Kingdom", "continent": "Europe", "population": 65270121, "pFemale": 0.508 },
+				{ "name": "Republic of Ireland", "continent": "Europe", "population": 4708209, "pFemale": 0.499 }, 
+				{ "name": "Australia", "continent": "Oceania", "population": 24482205, "pFemale": 0.502 }, 
+				{ "name": "Taiwan", "continent": "Asia", "population": 23522296, "pFemale": 0.501 },
+				{ "name": "Uruguay", "continent": "South America", "population": 3446772, "pFemale": 0.517 },
+				{ "name": "Morocco", "continent": "Africa", "population": 35010005, "pFemale": 0.510 }, 
+				{ "name": "Nigeria", "continent": "Africa", "population": 188688090, "pFemale": 0.494 }, 
+				{ "name": "Zimbabwe", "continent": "Africa", "population": 16051510, "pFemale": 0.507 },
+				{ "name": "China", "continent": "Asia", "population": 1381321335, "pFemale": 0.488 }, 
+				{ "name": "Mexico", "continent": "North America", "population": 129386794, "pFemale": 0.507 },
+				{ "name": "Canada", "continent": "North America", "population": 36446796, "pFemale": 0.504 },
+				{ "name":"Czech Republic", "continent":"Europe", "population":10556351, "pFemale": 0.509 }, 
+				{ "name": "Iceland", "continent": "Europe", "population": 332631, "pFemale": 0.496 } ]</p>
+	</fieldset>
+</body>
+</html>

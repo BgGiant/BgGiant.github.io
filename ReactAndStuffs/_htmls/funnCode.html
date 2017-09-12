@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+			<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<title>Test another API </title>
+			<script src="https://unpkg.com/react@latest/dist/react.js"></script>
+			<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+			<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+		<div id="app" ></div>
+		<script type="text/babel">
+			class App extends React.Component {
+				  constructor() {
+					super();
+					this.state = {
+					  user: []
+					}
+				  }
+
+				  componentDidMount() {
+					GetSomeInfo('HerrOmran').then(data => {
+					  this.setState({
+						user: data
+					  });
+					});
+				  }
+
+				  render() {
+					const {user} = this.state;
+					return( <div className="container">
+								<h1> Profile Details </h1>
+								<h6>Wanted ,Bug Department</h6>
+							<div className ="table table-responsive ">
+							<table className ="table table-striped">
+							 <thead className ="thead-inverse">
+								  <tr>
+									<th> Foto </th>
+									<th> Public repositories  </th>
+									<th> Followers </th>
+									<th> Created at </th>
+									<th> URL </th>
+								  </tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td > <img src={user.avatar_url} className ="img-responsive" width="50" height="50"/> </td>
+										<td>{ user.public_repos }</td>
+										<td> {user.followers} </td>
+										<td> {user.created_at} </td>
+										<td> <a href={user.html_url} > {user.login} </a></td>
+								  </tr>
+								</tbody>
+							</table> 
+						</div>							
+					</div>
+					);
+				  }
+				}
+
+				const GetSomeInfo = (username) => {
+				  return fetch(`https://api.github.com/users/${username}`)
+					.then(response => {
+					  return response.json()
+						.then(({login, avatar_url, html_url,public_repos,followers,created_at}) =>
+							({ login, avatar_url, html_url,public_repos,followers,created_at }));
+					})
+					.catch(error => {
+					  throw error;
+					})
+				};
+
+				ReactDOM.render(
+						<App />,
+						document.getElementById('app')
+						)
+		</script>
+		
+  </body>
+</html>

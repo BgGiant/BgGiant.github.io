@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+			<meta charset="UTF-8" />
+			<title>React </title>
+			<script src="https://unpkg.com/react@latest/dist/react.js"></script>
+			<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+			<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+		<div id="root"></div><hr>
+		<!--   -->
+		<script type="text/babel">
+		
+			function WordsList(props){
+				const myList = props.myList;
+				let key=0;
+				const listItems = myList.map((_item) =>
+						<li key={key++}>
+							{_item.word}  =  {_item.translation}
+						</li>
+					
+					);
+				return(
+						<ol>{listItems}</ol>
+					);
+			}
+			
+			
+				//const myList = ["katt ", "hav ", "gredelin ", "infrastruktur "];
+					const myList = [{word: 'katt', translation: 'cat'},
+							{word: 'hav', translation: 'ocean'},
+							{word: 'gredelin', translation: 'mauve'},
+							{word: 'infrastruktur', translation: 'infrastructure'}];
+				ReactDOM.render(
+				  <WordsList myList={myList}/>,
+				  document.getElementById('root')
+				);
+		</script>
+  </body>
+</html>

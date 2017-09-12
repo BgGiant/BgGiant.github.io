@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script src="../main.js"></script>
+		<script src="../jquery-2.1.4.min.js"></script>
+		<style>
+			#field1{
+					width:60%;
+					margin: auto;
+					border: 3px solid #73AD21;
+					padding: 10px;
+					margin-top:20px;
+				}
+			
+		</style>
+	</head>
+	<body>
+		<fieldset id ="field1">
+			<legend><strong>Inlämningsuppgift_10</strong></legend>
+					<div>
+							<p>Skriv ett HTML-dokument som innehåller följande element:
+								en textruta, en knapp och en lista. När man klickar på knappen
+								så ska det läggas till ett nytt element <strong> sist i listan</strong>, som har samma
+								text som den som står i textrutan. När man klickar på någon av elementen
+								i listan så ska texten i textrutan ersättas med det som står i elementet
+								man klickade på. Dessutom så ska elementen i listan byta bakgrundsfärg när
+								man klickar på dem.
+							<p>
+					</div>
+					<hr><br/>
+					<input id="myTextarea" type="text" placeholder="SomeText" /> 
+					<!-- <button onclick="myFunction()">Put first</button> TEST-->
+					<button id="btnAddToList" >Add</button>
+	
+					<ul id="myList" > 
+						  <li>Coffee</li>
+						  <li>Mug</li>
+						  <li>Tea</li>
+						  <li>Sugar</li>
+						  <li>Milk</li>
+						  <li>Water</li>
+						  <li>Choc</li>
+					</ul> 
+		</fieldset>	
+		<script>
+				// en element som lägger sist i listan.
+				let CreateListfunc =function() {
+					let newItem = document.createElement("LI");
+					let txtarea = document.getElementById("myTextarea").value;
+					let textnode = document.createTextNode(txtarea);
+					newItem.appendChild(textnode);
+					document.getElementById("myList").appendChild(newItem);
+					//txtarea ="";
+				}
+					let el = document.getElementById("btnAddToList");
+					el.addEventListener("click", CreateListfunc);
+					
+				//Gör något med color...
+				let backGroundColor = function(e){
+
+					let selectedItem = e.target;
+					let myList=document.getElementById("myList");
+					let listOfLi = myList.getElementsByTagName("LI");
+					
+					for(let i of listOfLi){
+						i.style.backgroundColor = "none";
+					}
+					selectedItem.style.backgroundColor = "lightgray";
+				}
+					let elList=document.getElementById("myList");
+					elList.addEventListener("click", backGroundColor);
+				//Reset text in the textarea...
+				let TextAreaText = function(e){
+					let li = e.target;
+					document.getElementById("myTextarea").value = li.innerHTML;  
+				}	
+					let ell = document.getElementById("myList");
+					ell.addEventListener("click", TextAreaText);	
+					
+					/**********************************************/
+					// 	function myFunction() {
+					// 	// en element som lägger först i listan
+					// 		 var newItem = document.createElement("LI");
+					// 		 var txtarea = document.getElementById("myTextarea").value;
+					// 		 var textnode = document.createTextNode(txtarea);
+					// 		 newItem.appendChild(textnode);
+					// 	
+					// 		 var list = document.getElementById("myList");
+					// 		 list.insertBefore(newItem, list.childNodes[0]);
+					// 	
+					// 	}
+					/*****************************************************/
+		</script>
+</body>
+</html>
