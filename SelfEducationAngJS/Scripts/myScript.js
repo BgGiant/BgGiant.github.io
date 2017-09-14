@@ -1,18 +1,20 @@
 (function(){
-    
+ 
     var myApp = angular
                     .module("myModule",[])
-                    .controller("MainController",function($scope,$http,$log){
-
-                 $http.get("https://forverkliga.se/JavaScript/api/simple.php?world")
-                             .then(function(response){
+                    .controller("MainController",function($scope,$http,$log,$timeout){
+                        $scope.isDone=false;
+                        
+                  var waitResponse = $timeout(function(){
+                         $http.get("https://forverkliga.se/JavaScript/api/simple.php?world").then(onComplete,onError);
+                        },5000);
+                    
+                   var onComplete= function(response){
                                 $scope.output = response.data;
                                 $scope.sortColumn = "name";
                                 $scope.reverseSort = false;
-                     
-                                 //$scope.totalRow=function(){
-                                            $scope.countRows = $scope.output.length;
-                                // }
+                                $scope.countRows = $scope.output.length;
+                                  $scope.isDone=true;
                                 $scope.sortBy = function(column){
                                     $scope.reverseSort = ($scope.sortColumn == column) ? !$scope.reverseSort : false;
                                     $scope.sortColumn = column;
@@ -53,13 +55,14 @@
                                 $scope.pFemale='';
                                 $scope.countRows = $scope.output.length;
                             }
-                            
-                            
-                    ///////////////////////////////
-                              
-                   },function(reason){
-                            $scope.error=reason.data;
-                            $log.info(reason);
-                 });
- });
+                        /////////////////////////////
+                       //  #For more developing#  //
+                      /////////////////////////////      
+                   };
+                        
+                  var onError = function(reason){
+                                        $scope.error=reason.data;
+                                        $log.info(reason);
+                             };
+    });
 })();
